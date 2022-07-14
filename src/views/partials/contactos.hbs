@@ -1,0 +1,88 @@
+<div class="card mx-auto" style="width: 80%;" id="panel_contactos">
+
+  <table class="table">
+  <thead class="card-header">
+    <tr>
+      <th >#</th>
+      <th></th>
+      <th >Nombre</th>
+      <th >Email</th>
+      <th >Teléfono</th>
+       <th >Empleo</th>
+      <th >Nota</th>
+      <th >Editar</th>
+      <th >Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each contacts}}
+    <tr>
+      <td>{{inc @index}}</td>
+      <td> <img  id="contact_img_{{this.id}}" class="border border-success rounded-circle"src="img/contacts/{{this.foto}}" width="36" height="36" alt=".."> </td>
+      <td id="contact_nombre_{{this.id}}">{{this.nombre}} {{this.apellido}}</td>
+      <td id="contact_email_{{this.id}}">{{this.email}}</td>
+      <td id="contact_telefono_{{this.id}}">{{this.telefono}} </td>
+      <td id="contact_empleo_{{this.id}}">{{this.config.empleo}} </td>
+      <td id="contact_nota_{{this.id}}">{{this.nota}} </td>
+      <td class="mx-auto" onclick="edit_contact('{{this.id}}', '{{this.nombre}}', '{{this.apellido}}', '{{this.email}}', '{{this.telefono}}', '{{this.config.empleo}}', '{{this.nota}}', '{{this.foto}}')">
+        <a href=""data-bs-toggle="offcanvas" data-bs-target="#edit_contacts" aria-controls="offcanvasExample">
+        <span class="material-icons-outlined" >edit</span> </a></td>
+      <td class="mx-auto" onclick="delete_contact('{{this.id}}')"><a href="#"><span class="material-icons-outlined">delete_outline</span></td></a>
+    </tr>
+      {{else}}
+    <tr class="text-center">
+      <td class="fs-3 border "colspan="9">Sin contactos asociados</td>
+    
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+
+	
+
+<script>
+
+const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li');
+allSideMenu.forEach(item=> {
+    item.classList.remove('active');
+})
+
+    document.getElementById('contactos').classList.add('active');
+
+const edit_contact=async(idc, nombre, apellido, email, telefono, empleo, nota, foto)=>{
+  document.getElementById('id_contactEdit').value=idc
+  document.getElementById('crop-image2').src=`img/contacts/${foto}`;
+  document.getElementById("input-file2").value=""
+  document.getElementById("name_edit_contact").value=nombre
+  document.getElementById("lastName_edit_contact").value=apellido
+  document.getElementById("email_edit_contact").value=email
+  document.getElementById("phone_edit_contact").value=telefono
+  document.getElementById("job_edit_contact").value=empleo
+  document.getElementById("note_edit_contact").value=nota
+
+
+}    
+
+
+
+const delete_contact=async(id)=>{
+
+  let payload={
+    id,
+  }
+
+
+await fetch('/contactos',{
+  method: 'DELETE',
+  headers: { 'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(payload)
+})
+
+window.location.href='/contactos'
+
+
+}
+</script>

@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=bd_sequelize
+    networks:
+      project_net:
+        aliases:
+          - postgres_net
+    volumes:
+      - './postgres_data:/var/lib/postgresql/data'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "fidonoso@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "13991987Ft"
+    ports:
+      - "80:80"
+    networks:
+      project_net:
+        aliases:
+          - pgadmin_net
+    depends_on:
+      - postgres
+  
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proyecto_sequelize
+    restart: always
+    ports:
+      - 4000:3000
+    networks:
+      project_net:
+        aliases:
+          - node_host
+    depends_on:
+      - pgadmin
+
+networks:
+  project_net:
+    name: project_sequelize
+    driver: bridge
+    ipam:
+      driver: default
+
+volumes:
+  postgres_data: {}

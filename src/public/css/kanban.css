@@ -1,0 +1,306 @@
+body{
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 ;
+    scroll-behavior: initial !important;
+}
+:root {
+
+
+	--light: #F9F9F9;
+	--blue: #3C91E6;
+	--light-blue: #CFE8FF;
+	--grey: #eee;
+	--dark-grey: #AAAAAA;
+	--dark: #342E37;
+	--red: #DB504A;
+	--yellow: #FFCE26;
+	--light-yellow: #FFF2C6;
+	--orange: #FD7238;
+	--light-orange: #FFE0D3;
+	--green:rgb(54, 231, 54);
+
+    --rojo-atenuado:#dd8ca7;
+    --verde-atenuado: #94e9c6;
+    --azul-atenuado:#7dbef3;
+    --amarillo-atenuado:#e4df8b;
+
+    --rojo:#dd7396;
+    --azul:#2196f3;
+    --verde:#16d686;
+    --amarillo:#fff459;
+
+	--modo:calc(100% - (25px - 4px) - 2px);
+}
+
+body.dark {
+	--light: #0C0C1E;
+	--grey: #060714;
+	--dark: #FBFBFB;
+
+    --rojo:#ee0a56;
+    --azul:#034c88;
+    --verde:#035e38;
+    --amarillo:#7f7705;
+}
+
+#kanban_app{
+    min-width: 100% !important;
+}
+.list{
+    width: 250px;
+    margin: 0 1.8rem 1rem 0 !important;
+    position: relative;
+    float: left;
+    background: #e2e4e6;
+    transition: all .3s cubic-bezier(.23,1,.32,1);
+    /* box-sizing: border-box; */
+    border-radius:14px;
+    padding-bottom: 1rem;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    transition: all .3s cubic-bezier(1,0,0,1);
+    box-shadow: 5px 5px 0px 0px var(--dark);
+    border: 1px groove var(--dark) !important;
+}
+
+.row .list:hover{
+
+    box-shadow: 15px 15px 0px 0px var(--dark);
+    /* transform: scale(1.02); */
+}
+
+.header-list{
+    font-size:15px;
+    padding:10px;
+   
+    box-sizing: border-box;
+    border-radius: 14px 14px 0 0;
+}
+
+.name-list{
+    color: white;
+    width: 150px;
+    display: inline-block;
+    padding: 0 0.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+.red .name-list:hover{
+    background: var(--rojo-atenuado); /* colo atenuado*/
+}
+.green .name-list:hover{
+    background: var(--verde-atenuado);/* colo atenuado*/
+}
+.blue .name-list:hover{
+    background:var(--azul-atenuado);/* colo atenuado*/
+}
+.yellow .name-list:hover{
+    background:var(--amarillo-atenuado);/* colo atenuado*/
+}
+.list-name-button{
+    width: 120px;
+    height: 20px;
+    line-height: 15px;
+    color: #333;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    bottom: 8px;
+    display: block;
+    font-weight: 700;
+    font-size: 0.80rem;
+    background-color: transparent;
+    box-shadow: none;
+    float:right;
+}
+
+.dropdown-trigger{
+    cursor: pointer;
+}
+
+.header-list .dropdown .dropdown-menu{
+    background: var(--light);
+    border: 1px solid var(--dark);
+}
+.dropdown-menu li>a, .dropdown-menu li>span {
+    font-size: 12px;
+    /* line-height: 22px; */
+    display: block;
+    padding: 1px 0px;
+    color: #03a9f4;
+}
+
+/*dibujo de las barras para seleccionar el color de las listas*/
+.dropdown-item .barra_red{
+    width:40px;
+    height:13px;
+    background-color:var(--rojo);
+}
+.dropdown-item .barra_blue{
+    width:40px;
+    height:13px;
+    background-color: var(--azul);
+}
+.dropdown-item .barra_green{
+    width:40px;
+    height:13px;
+    background-color:var(--verde);
+}
+.dropdown-item .barra_yellow{
+    width:40px;
+    height:13px;
+    background-color: var(--amarillo);
+}
+/**//**/
+
+.blue, .btn-color-blue{
+    background-color:var(--azul);
+}
+.green, .btn-color-green{
+    background-color: var(--verde);
+}
+.red, .btn-color-red{
+    background-color: var(--rojo);
+}
+.yellow, .btn-color-yellow{
+    background-color: var(--amarillo);
+    color:black;
+}
+.text_blue{
+ color:var(--azul);
+}
+.text_red{
+ color: var(--rojo);
+}
+.text_green{
+ color:var(--verde);
+}
+.text_yellow{
+ color:var(--amarillo);
+}
+/* .blue{
+    background-color: #2196f3;
+} */
+
+.list .list-panel{
+    min-height: 200px;
+    padding:10px; 
+}
+
+
+.btn_edit_project, .btn_delete_project{
+    cursor: pointer;
+}
+
+/*para Sortable*/
+
+#content_panel{
+    display: block;
+}
+
+#content_panel .list.selectDrag{
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: rgb(5, 13, 129);
+    background:rgb(94, 93, 93);
+}
+#content_panel .list.fantasma{
+  
+    background:rgb(94, 93, 93);
+    opacity: .5;
+    border: 3px solid #370bf9;
+}
+#content_panel .list.drag{
+    border-radius: 50%;
+}
+
+#content_panel .list .header-list .handlemove{
+    cursor: move;
+}
+
+
+/**//**/
+
+/*para las cards de tareas*/
+.card .handlemovetask{
+    cursor: move;
+}
+.card .barra_task_red{
+    width:90%;
+    height:5px;
+    background-color:var(--rojo);
+}
+
+.card .barra_task_blue{
+    width:90%;
+    height:5px;
+    background-color: var(--azul);
+}
+.card .barra_task_green{
+    width:90%;
+    height:5px;
+    background-color:var(--verde);
+}
+.card .barra_task_yellow{
+    width:90%;
+    height:5px;
+    background-color: var(--amarillo);
+}
+/**//**/
+/*para las fechsa dentro de las tareas*/
+.card-body .lighten-blue{
+    background-color:  #e8f5e9;
+    color:#4c8baf;
+}
+.card-body .lighten-red{
+    background-color:  #e8f5e9;
+    color:#af4c4c;
+}
+.card-body .lighten-green{
+    background-color:  #e8f5e9;
+    color:#4caf50;
+}
+.card-body .lighten-yellow{
+    background-color:  #e8f5e9;
+    color:#776e08;
+}
+
+/*PARA CONTACTOS EN VISTA DE CONTACTOS*/
+#panel_contactos {
+    background-color: var(--light);
+}
+
+#panel_contactos table th, td, tr {
+    color: var(--dark);
+}
+
+
+.list-panel .card{
+    background-color: var(--light);
+    -webkit-box-shadow: 5px 5px 2px 0px var(--dark);
+    -moz-box-shadow: 5px 5px 2px -0px var(--dark);
+    box-shadow: 5px 5px 2px 0px var(--dark);
+    border: 2px groove var(--dark) !important;
+}
+.list-panel .card:hover{
+    box-shadow: 7px 5px 2px 0px var(--dark);
+    transform: scale(1.02);
+}
+
+.card-body .card-title{
+    color: var(--dark);
+    font-size: 17px;
+}
+
+.card-body .card-text{
+    font-size:15px;
+}
+.row .list{
+    background-color: var(--grey);
+}
+.text-fecha{
+    font-size:14px;
+}
+.progress-text{
+    font-size:16px;
+}

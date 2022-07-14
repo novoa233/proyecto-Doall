@@ -1,0 +1,58 @@
+<nav>
+    <i class='bx bx-menu' ></i>
+    <a href="#" class="nav-link">Categories</a>
+    <form action="#">
+        <div class="form-input">
+            <input type="search" placeholder="Search...">
+            <button type="submit" class="search-btn  bg-warning"><i class='bx bx-search' ></i></button>
+        </div>
+    </form>
+    <span class="d-none" id="midunique"></span>
+    <div class="d-flex-column" >
+        <span class=" text-weather"id="text_zona_horaria">Zona horaria</span><br>
+        <span class=" text-weather" id="text_clima">soleado</span><br>
+        <span class=" text-weather" id="text_temperatura">temperatura actual</span><br>
+
+    </div>
+    <div class="me-auto">
+        <img id="icon_weather"src="" alt="..." width="100px" height="100px">
+
+    </div>
+    <span>{{>user}}</span>
+    <input type="checkbox" id="switch-mode" hidden>
+    <label for="switch-mode"  data-content="" class="switch-mode" id="label-switch-mode"></label>
+    <a href="#" class="notification">
+        <i class='bx bxs-bell' ></i>
+        <span class="num">8</span>
+    </a>
+    <a href="#" class="profile">
+        <img src="img/imgProfile.png" id>
+    </a>
+</nav>
+<script>
+
+
+try{ 
+
+   (async ()=>{
+
+    const indicadores= await fetch('https://mindicador.cl/api')
+    const respuesta= await indicadores.json()
+    let dolar=document.getElementById('dolar_actual')
+    let uf=document.getElementById('uf_actual')
+    let bitcoin=document.getElementById('bitcoin_actual')
+    let wait_indices=document.getElementById('wait_indices')
+
+        dolar.textContent=`${respuesta.dolar.valor} Dolar`
+        uf.textContent=`${respuesta.uf.valor} UF`
+        bitcoin.textContent=`${respuesta.bitcoin.valor} Bitcoin`
+        dolar.classList.remove('d-none')
+        uf.classList.remove('d-none')
+        bitcoin.classList.remove('d-none')
+        wait_indices.classList.add('d-none')
+    })()
+}catch(error){
+    console.log('No se pudieron obtener los indicadores')
+}
+
+</script>

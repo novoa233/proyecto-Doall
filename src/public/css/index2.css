@@ -1,0 +1,244 @@
+:root{
+    --primary-color: rgb(58,79,105);
+    --secundary-color: rgb(157,167,180);
+    --thir-color: rgb(233,95,133);
+    --primary-color-hover: rgb(30, 50, 75);
+    --secundary-color-hover:rgb(110, 116, 124);
+}
+
+.group{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    outline: 1px solid var(--secundary-color);
+    border-radius: 50%;
+    overflow: hidden;
+}
+.group .crop-image{
+    width: 100%;
+}
+.group #input-file, #input-file2{
+    display: none;
+}
+.group .label-file{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: rgba(157, 167, 180, 0.74);
+    padding: 10px 0px;
+    font-size: 12px;
+    bottom: -101%;
+    left: 0;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+    color: var(--primary-color);
+}
+.group:hover .label-file{
+    bottom: 0;
+}
+
+/* ==== Modal estilos ==== */
+
+.modal_mio{
+    background-color: rgba(0, 0, 0, 0.247);
+    backdrop-filter: blur(0px);
+    position: fixed;
+    z-index: 1047;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 150ms ease-in-out;
+    overflow: auto;
+    padding: 20px;
+}
+.modal-content_mio{
+    width: 800px;
+    /* margin: auto; */
+    background-color: rgb(250, 250, 250);
+    border-radius: 10px;
+    overflow: hidden;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: 400ms 300ms all ease;
+}
+.modal-content_mio .modal-header_mio{
+    width: 100%;
+    padding: 20px 10px;
+    text-align: center;
+    background-color: rgb(249,249,249);
+    box-shadow: 0px -2px 7px 1px rgba(0, 0, 0, 0.281);
+    font-size: 18px;
+}
+.modal-content_mio .modal-body_mio{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 10px;
+}
+.modal-body_mio .content-imagen-cropper{
+    width: 80%;
+    height: 400px;
+    padding: 5px;
+    outline: 1px solid var(--thir-color);
+}
+.content-imagen-cropper .img-cropper{
+    width: 100%;
+}
+.modal-body_mio .content-imagen-sample{
+    height: 200px;
+    width: 200px;
+    outline: 1px solid var(--thir-color);
+    border-radius: 100%;
+    overflow: hidden;
+}
+.modal-body_mio .content-imagen-sample .img-sample{
+    height: 100%;
+    width: 100%;
+}
+.modal-content_mio .modal-footer_mio{
+    width: 100%;
+    padding: 10px 10px;
+    text-align: center;
+    background-color: rgb(249,249,249);
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.281);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+}
+.modal-footer_mio .btn{
+    border: none;
+    padding: 12px 70px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    transition: background-color 300ms ease;
+}
+.modal-footer_mio .primary{
+    background-color: var(--primary-color);
+}
+.modal-footer_mio .secundary{
+    background-color: var(--secundary-color);
+}
+.modal-footer_mio .primary:hover{
+    background-color: var(--primary-color-hover);
+}
+.modal-footer_mio .secundary:hover{
+    background-color: var(--secundary-color-hover);
+}
+
+/* ==== Modal estilos active ==== */
+
+.modal_mio.active{
+    opacity: 1;
+    backdrop-filter: blur(3px);
+    visibility: visible;
+}
+.modal-content_mio.active{
+    transform: scale(1);
+    opacity: 1;
+}
+.modal_mio.remove{
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    visibility: hidden;
+    transition: 150ms 150ms all ease-in-out;
+}
+.modal-content_mio.remove{
+    transform: scale(0.9);
+    opacity: 0;
+    transition: 150ms all ease;
+}
+
+/*boton de guardar contacto*/
+
+#btn-save-contact, #btn-edit-contact, #btn-asig-contact, .btn-bonito{
+
+    background-color: #00bcd4 !important;
+    color:#fff;
+}
+
+
+/*/*//*/*//*/*/
+/*para el modal de logueo*/
+/* ==== Modal estilos ==== */
+
+.form_grupo-input{
+    position: relative;
+}
+.form-control{
+    border: 3px solid transparent !important;
+    transition: .3s esase all !important;
+}
+.form-control:focus{
+    border: 3px solid #0075ff !important;
+    outline: none;
+    box-shadow: 3px 0px 30px rgb(163, 163, 163, 0.4);
+}
+.register_input_error{
+    font-size: 12px !important;
+    margin-bottom: 0;
+    display:none !important;
+}
+.register_input_error-activo{
+    display:block !important;
+}
+
+.register_validation_state{
+    position: absolute;
+    right: 10px;
+    opacity: 0;
+}
+.register_mensaje{
+    height: 40px;
+    line-height:40px;
+    background: #f66868;
+    padding: 0 15px;
+    border-radius: 3px;
+    display:none;
+}
+.register_mensaje-activo{
+    display:block;
+}
+/*validacion*/
+.grupo-control-correcto .register_validation_state{
+    color: #1ed12d;
+    opacity: 1;
+}
+.grupo-control-incorrecto .register_validation_state{
+    color: #bb2929;
+    opacity: 1;
+}
+.grupo-control-incorrecto .register_input_error{
+    color: #bb2929;
+    opacity: 1;
+}
+.grupo-control-incorrecto .formulario_input{
+    border: 3px solid #bb2929 !important;
+    color: #bb2929;
+    opacity: 1;
+}
+.formulario__mensaje-exito {
+	font-size: 14px;
+	color: #119200;
+	display: none;
+}
+
+.formulario__mensaje-exito-activo {
+	display: block;
+}
+
+

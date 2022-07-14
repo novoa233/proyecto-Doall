@@ -1,0 +1,472 @@
+
+	{{>sidebar}}
+
+	<section id="content">
+		<!-- NAVBAR -->
+		{{>navbar}}
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+	
+			{{>box-info}}
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Contactos</h3>
+					
+						<a class=" btn btn-light px-2 ms-auto"  id="btn-newContact"  data-bs-toggle="offcanvas" data-bs-target="#add_new_contact" aria-controls="offcanvasExample" >
+							<span class="material-symbols-outlined">add</span>
+						</a>
+					</div>
+					
+
+                {{> contactos}}
+				</div>
+			
+			</div>
+
+			<!--Form del MODAL Nuevo contacto--->
+			<div class="offcanvas offcanvas-end" tabindex="-1" id="add_new_contact" aria-labelledby="offcanvasExampleLabel">
+  				<div class="offcanvas-header">
+    				<h4 class="offcanvas-title mx-auto mb-0 pt-1" id="offcanvasExampleLabel">Crear nuevo contacto</h4>					
+    				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  				</div>
+					<hr class="w-100">
+  				<div class="offcanvas-body my-0 ">
+					<form action="/contactos" method="POST" enctype="multipart/form-data">
+						
+							<div class="form-group mb-1 d-flex">
+								<span class="material-icons me-3 pe-2 d-flex align-items-center" style="font-size:36px; color:#00bcd4;" >add_a_photo</span>							
+								<div class="group me-auto " id="padre_new_contact">
+									<img src="img/user.png" alt="contact" class="crop-image" id="crop-image" >
+									<input class="d-none"type="file" id="input-file" accept=".png,.jpg,.jpeg" name="foto">                              
+									<label for="input-file" class="form-label label-file">imagen</label>
+								</div>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >person</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Nombre" id="name_new_contact" name="name_new_contact" required>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >person</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Apellido" id="lastName_new_contact" name="last_name_new_contact" required>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >email</span>
+								<input type="email" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Email" id="email_new_contact" name="email_new_contact" required>
+							</div>					
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >phone</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Teléfono" id="phone_new_contact" name="phone_new_contact">
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >work</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Profesión" id="job_new_contact" name="job_new_contact">
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >note</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Nota" id="note_new_contact" name="note_new_contact">
+							</div>												
+						
+						<div class="pt-3">
+							<div class="d-flex  justify-content-evenly pt-1">
+								<button type="submit" class="btn form-control" id="btn-save-contact" data-bs-dismiss="offcanvas" >Guardar</button>
+							
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+
+
+		<!-- Modal para cortar imagen cuando se crea un nuevo contacto-->
+    <div class="modal_mio" id="modal">
+        <div class="modal-content_mio" id="modal-content">
+            <div class="modal-header_mio">
+                <p>Nuevo contacto: Recorta tu foto</p>
+            </div>
+            <div class="modal-body_mio">
+                <div class="content-imagen-cropper">
+                    <img src="" alt="" class="img-cropper" id="img-cropper">
+                </div>
+                <div class="content-imagen-sample">
+                    <div src="" alt="" class="img-sample" id="img-croppered"></div>
+                </div>
+            </div>
+            <div class="modal-footer_mio">
+                <button class="btn primary" id="cut">Recortar</button>
+                <button class="btn secundary" id="close">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+<!--From edicion de contacto Para MODAL editar contacto formulario de edicion--->
+			<div class="offcanvas offcanvas-end" tabindex="-1" id="edit_contacts" aria-labelledby="offcanvasExampleLabel">
+  				<div class="offcanvas-header">
+    				<h4 class="offcanvas-title mx-auto mb-0 pt-1" id="offcanvasExampleLabel">Editar contacto</h4>					
+    				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  				</div>
+					<hr class="w-100">
+  				<div class="offcanvas-body my-0 ">
+					<form action="/contactos" method="PUT" enctype="multipart/form-data" id="form_edit_contact">
+						<input class="d-none" type="text" id="id_contactEdit" name="id_contactEdit">
+							<div class="form-group mb-1 d-flex">
+								<span class="material-icons me-3 pe-2 d-flex align-items-center" style="font-size:36px; color:#00bcd4;" >add_a_photo</span>							
+								<div class="group me-auto" id="padre_edit_contact">
+									<img src="img/user.png" alt="contact" class="crop-image" data-id="img_edit_contact" id="crop-image2">
+									<input class="d-none"type="file"  id="input-file2" accept=".png,.jpg,.jpeg" name="foto">                              
+									<label for="input-file2" class="form-label label-file">imagen</label>
+								</div>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >person</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Nombre" id="name_edit_contact" name="name_edit_contact" required>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >person</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Apellido" id="lastName_edit_contact" name="last_name_edit_contact" required>
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >email</span>
+								<input type="email" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Email" id="email_edit_contact" name="email_edit_contact" required>
+							</div>					
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >phone</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Teléfono" id="phone_edit_contact" name="phone_edit_contact">
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >work</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Profesión" id="job_edit_contact" name="job_edit_contact">
+							</div>
+							<div class="form-group mb-1">
+								<span class="material-icons me-3" style="font-size:36px; color:#00bcd4;" >note</span>
+								<input type="text" class="form-control border border-top-0 border-end-0 border-start-0 border-info" placeholder="Nota" id="note_edit_contact" name="note_edit_contact">
+							</div>												
+						
+						<div class="pt-3">
+							<div class="d-flex  justify-content-evenly pt-1">
+								<button type="submit" class="btn form-control" id="btn-edit-contact" data-bs-dismiss="offcanvas" >Guardar</button>
+							
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--fin modal-->
+ <!-- Modal 2 para cortar imagen cuando se edita un contacto (z-index:1047 >1045)-->
+
+    <div class="modal_mio" id="modal2">
+        <div class="modal-content_mio" id="modal-content2">
+            <div class="modal-header_mio">
+                <p>Editar contacto - Recorta tu foto</p>
+            </div>
+            <div class="modal-body_mio">
+                <div class="content-imagen-cropper">
+                    <img src="" alt="" class="img-cropper" id="img-cropper2">
+                </div>
+                <div class="content-imagen-sample">
+                    <div src="" alt="" class="img-sample" id="img-croppered2"></div>
+                </div>
+            </div>
+            <div class="modal-footer_mio">
+                <button class="btn primary" id="cut2">Recortar</button>
+                <button class="btn secundary" id="close2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+		<!-- MAIN -->
+<script>
+
+const cleanInput=(valor)=>{
+  const expresiones=["<script>", "[", "]" , 
+    "parseInt", "document.write", "isNaN", "unescape", "escape",
+    "parseFloat", "parseInt", "eval", "isNaN", "onload", "alert", "script",
+    "<",  ">", "onload", "=", "(", ")", '"' ,"'" ,"/"]
+  let salida=true;
+    expresiones.forEach(el=>{
+      if(valor.includes(el)){
+        salida=false;
+        console.log('término o palabra prohibida')
+      }
+    });
+  return salida  
+};
+let estados={
+	nombre:true,
+	apellido:true,
+  	email: true,
+
+	telefono:true,
+	empleo:true,
+	nota:true
+}
+
+let inputs=document.querySelectorAll('#form_edit_contact input[type="text"], #form_edit_contact input[type="email"]')
+console.log(inputs)
+inputs.forEach(inp=>{
+	inp.addEventListener('change',(event)=>{
+		let valor= event.target.value
+		let estado=cleanInput(valor)
+  		switch (event.target.name) {
+		case "name_edit_contact":
+			estados.nobre=estado;
+		break;
+		case "last_name_edit_contact":
+			estados.apellido=estado;
+		break;
+		case "email_edit_contact":
+			estados.email=estado;
+		break;
+		case 'phone_edit_contact':
+			estados.telefono=estado;
+		break;
+		case "job_edit_contact":
+			estados.empleo=estado;
+		break;
+		case "note_edit_contact":
+			estados.nota=estado;
+		break;
+		
+	}
+	})
+})
+
+const form_edit=document.getElementById('form_edit_contact')
+form_edit.addEventListener('submit',async(e)=>{
+e.preventDefault()
+console.log('detenido')
+let imgedit=document.getElementById('crop-image2')
+let input=document.getElementById('input-file2')
+
+if(!input.value || input.files[0]){
+	let frag= new File([imgedit], 'image.png', { type: imgedit.type})
+    let container = new DataTransfer();
+    container.items.add(frag);
+    input.files = container.files; 
+	console.log('input-file2==>', input.files[0])
+	input.filename = 'image.png'
+	console.log('input-filename==>', input.filename)
+	
+}
+
+	if(estados.nombre && estados.apellido && estados.email && estados.telefono && estados.empleo && estados.nota && input.value){
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Contacto actualizado',
+			showConfirmButton: false,
+			timer: 1500
+			})
+
+		let id= document.getElementById('id_contactEdit').value
+		let payload={
+			nombre: document.getElementById('name_edit_contact').value,
+			apellido: document.getElementById('lastName_edit_contact').value,
+			email: document.getElementById('email_edit_contact').value,
+			telefono: document.getElementById('phone_edit_contact').value,
+			empleo: document.getElementById('job_edit_contact').value,
+			nota: document.getElementById('note_edit_contact').value,
+		}
+
+		await fetch(`/contactos/${id}`,{
+			method:"put",
+			headers: {
+					"Content-Type": "application/json"
+					},
+			body: JSON.stringify(payload)
+			});
+
+		setTimeout(()=>{
+			form_edit.submit()
+		},1500)
+
+	}else{
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'Complete correctamente todos los datos del contacto!',
+			
+			})
+		console.log('prueba fracasada')
+	}
+
+})
+
+
+	
+let cropper = null;
+
+//form de creacion de nuevo contacto, se usa en modal de nuevvo contacto <form action="/contactos" method="POST" 
+document.getElementById('input-file').addEventListener('change', () => { 
+    let image = document.getElementById('img-cropper')
+    let input = document.getElementById('input-file')
+    let archivos = input.files
+    let extensiones = input.value.substring(input.value.lastIndexOf('.'), input.value.lenght)
+    
+    if(!archivos || !archivos.length){        
+        image.src = "";
+        input.value = "";       
+    } else if(input.getAttribute('accept').split(',').indexOf(extensiones) < 0){
+         alert('Debes seleccionar una imagen')
+         input.value = "";
+
+    } else {
+        let imagenUrl = URL.createObjectURL(archivos[0])
+        image.src = imagenUrl
+        cropper = new Cropper(image, {
+            aspectRatio: 1, // es la proporción en la que queremos que recorte en este caso 1:1
+            preview: '.img-sample', // contenedor donde se va a ir viendo en tiempo real la imagen cortada
+            zoomable: false, //Para que no haga zoom 
+            viewMode: 1, //Para que no estire la imagen al contenedor
+            responsive: false, //Para que no reacomode con zoom la imagen al contenedor
+            dragMode: 'none', //Para que al arrastrar no haga nada
+            ready(){ // metodo cuando cropper ya este activo, le ponemos el alto y el ancho del contenedor de cropper al 100%
+                document.querySelector('.cropper-container').style.width = '100%'
+                document.querySelector('.cropper-container').style.height = '100%'
+            }
+        })
+      
+        document.getElementById('modal').classList.add('active')
+        document.getElementById('modal-content').classList.add('active')
+        document.getElementById('modal').classList.remove('remove')
+        document.getElementById('modal-content').classList.remove('remove')
+    }
+})
+
+document.getElementById('close').addEventListener('click', () => {
+    let image = document.getElementById('img-cropper')
+    let input = document.getElementById('input-file')
+
+    image.src = "";
+    input.value = "";
+
+    cropper.destroy()
+
+    document.getElementById('modal').classList.add('remove')
+    document.getElementById('modal-content').classList.add('remove')
+    document.getElementById('modal').classList.remove('active')
+    document.getElementById('modal-content').classList.remove('active')
+})
+
+document.getElementById('cut').addEventListener('click', () => {
+    let crop_image = document.getElementById('crop-image')
+    let canva = cropper.getCroppedCanvas()
+    let image = document.getElementById('img-cropper')
+    let input = document.getElementById('input-file')
+
+    canva.toBlob(function(blob){
+        let url_cut = URL.createObjectURL(blob)
+        crop_image.src = url_cut;      
+
+		let frag= new File([blob], 'image.png', { type: blob.type})
+       let container = new DataTransfer();
+       container.items.add(frag);
+       input.files = container.files; 
+    })
+
+
+    image.src = "";
+    // input.value = "";
+
+    cropper.destroy()
+
+    document.getElementById('modal').classList.add('remove')
+    document.getElementById('modal-content').classList.add('remove')
+    document.getElementById('modal').classList.remove('active')
+    document.getElementById('modal-content').classList.remove('active')
+
+	cropper=null;
+})
+
+
+//Para modal y src del modal de edicion
+document.getElementById('input-file2').addEventListener('change', () => {
+
+
+
+    let image = document.getElementById('img-cropper2')
+    let input = document.getElementById('input-file2')
+    let archivos = input.files
+   
+    let extensiones = input.value.substring(input.value.lastIndexOf('.'), input.value.lenght)
+    
+    if(!archivos || !archivos.length){        
+        image.src = "";
+        input.value = "";
+        
+    } else if(input.getAttribute('accept').split(',').indexOf(extensiones) < 0){
+         alert('Debes seleccionar una imagen')
+         input.value = "";
+
+    } else {
+        let imagenUrl = URL.createObjectURL(archivos[0])
+        image.src = imagenUrl
+
+        cropper = new Cropper(image, {
+            aspectRatio: 1, // es la proporción en la que queremos que recorte en este caso 1:1
+            preview: '.img-sample', // contenedor donde se va a ir viendo en tiempo real la imagen cortada
+            zoomable: false, //Para que no haga zoom 
+            viewMode: 1, //Para que no estire la imagen al contenedor
+            responsive: false, //Para que no reacomode con zoom la imagen al contenedor
+            dragMode: 'none', //Para que al arrastrar no haga nada
+            ready(){ // metodo cuando cropper ya este activo, le ponemos el alto y el ancho del contenedor de cropper al 100%
+                document.querySelector('.cropper-container').style.width = '100%'
+                document.querySelector('.cropper-container').style.height = '100%'
+            }
+        });
+       document.getElementById('modal2').classList.add('active')
+        document.getElementById('modal-content2').classList.add('active')
+        document.getElementById('modal-content').classList.remove('active') //experimental
+		document.getElementById('modal').classList.remove('active')//experimental
+
+        document.getElementById('modal2').classList.remove('remove')
+        document.getElementById('modal-content2').classList.remove('remove')
+        document.getElementById('modal').classList.add('remove')//experimental
+        document.getElementById('modal-content').classList.add('remove')//experimental
+    }  
+});
+
+document.getElementById('close2').addEventListener('click', () => {
+    let image = document.getElementById('img-cropper2')
+    let input = document.getElementById('input-file2')
+    image.src = "";
+    input.value = "";
+    cropper.destroy()
+    document.getElementById('modal2').classList.add('remove')
+    document.getElementById('modal-content2').classList.add('remove')
+    document.getElementById('modal2').classList.remove('active')
+    document.getElementById('modal-content2').classList.remove('active')
+	cropper=null;
+})
+
+document.getElementById('cut2').addEventListener('click', () => {
+    let crop_image = document.getElementById('crop-image2')
+    let canva = cropper.getCroppedCanvas()
+    // let image = document.getElementById('img-cropper2')
+    // let input = document.getElementById('input-file2')
+
+    canva.toBlob(function(blob){
+        let url_cut = URL.createObjectURL(blob)
+        crop_image.src = url_cut;
+
+		let frag= new File([blob], 'image.png', { type: blob.type})
+       let container = new DataTransfer();
+       container.items.add(frag);
+       input.files = container.files; 
+    })
+ 
+    // input.value = "";
+    cropper.destroy()
+
+    document.getElementById('modal2').classList.add('remove')
+    document.getElementById('modal-content2').classList.add('remove')
+    document.getElementById('modal2').classList.remove('active')
+    document.getElementById('modal-content2').classList.remove('active')
+	
+})
+</script>

@@ -1,0 +1,574 @@
+
+
+  <section class=""  id="contenido">
+        <div class="row g-0">
+            <div class="col-lg-7 d-none d-lg-block">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+                      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+                      <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner ">
+                      <div class="carousel-item  img-1 min-vh-100 active">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5 class="font-weight-bold">Organiza tus ideas en cualquier lugar</h5>
+                          <a class="text-muted text-decoration-none">Acceso online desde donde estes</a>
+                        </div>
+                      </div>
+
+                      <div class="carousel-item  img-2 min-vh-100 active">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5 class="font-weight-bold">Define y visualiza tus metas</h5>
+                          <a class="text-muted text-decoration-none">Construye el guión de tu futuro</a>
+                        </div>
+                      </div>
+
+                      <div class="carousel-item img-3 min-vh-100">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5 class="font-weight-bold">Se el lider de tu equipo</h5>
+                          <a class="text-muted text-decoration-none">Coordinar un equipo colaborativo es la clave del éxito</a>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+            </div>
+            <div class="col-lg-5 d-flex flex-column align-items-end min-vh-100" id="loguearse">
+                 {{>errors}}
+                 {{>messages}}
+                <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100">
+                    <img src="img/logo.png" width="200px" class="img-fluid" />
+                </div>
+                <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
+                <h1 class="font-weight-bold mb-4">Bienvenido de vuelta</h1>
+                <form class="mb-5" action="/validateuser" method="post" id="form_login">
+                    <div class="mb-4">
+                      <label for="login_email" class="form-label font-weight-bold">Email</label>
+                      <input type="email" class="form-control bg-dark-x border-0" id="login_email" placeholder="Ingresa tu email" aria-describedby="emailHelp" name="email" value="{{email}}">
+                    </div>
+                    <div class="mb-4">
+                      <label for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
+                      <input type="password" name="password"class="form-control bg-dark-x border-0 mb-2" placeholder="Ingresa tu contraseña" id="exampleInputPassword1">
+                      <a href="" id="emailHelp" class="form-text text-muted text-decoration-none">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                  </form>
+        <!--proximamente--->
+                <p class="font-weight-bold text-center text-muted d-none">O inicia sesión con</p>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-outline flex-grow-1 mr-2 d-none"><i class="fab fa-google lead mr-2"></i> Google</button>
+                    <button type="button" class="btn btn-outline flex-grow-1 ml-2 d-none"><i class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
+                </div>
+                <!---------------->
+                </div>
+                <div class="text-center px-5 pt-3 pb-4 mt-auto w-100">
+                     <p class="d-inline-block mb-0" >¿Todavia no tienes una cuenta?</p> <a href="#" id="register" class="font-weight-bold text-decoration-none">Crea una ahora</a>
+                </div>
+            </div>
+
+            {{!-- Formulario de registro --}}
+            <div class="col-lg-5 d-flex flex-column align-items-center d-none" id="formRegister">
+                {{>errors}}
+                 {{>messages}}
+              <div class="w-100 ">
+                <div class="px-5 pt-4 pb-3 mb-auto w-100">
+                    <img src="img/logo.png" width="200px" class="img-fluid" />
+                </div>
+                <div class="header">
+                  <h5 class="fs-1 text-center my-3 pb-3 pt-4"> Registrar una cuenta</h5> 
+                </div>
+                <div class="container w-75">
+                  <form action="/login" method="POST" enctype="multipart/form-data" id="formRegister">
+                    <div class="row">
+                      <div class="row ">
+                        <div class="col-6">
+                          <!--grupo nombre-->
+                          <div class="form-group pb-1 my-2 d-flex flex-column align-items-start grupo-control" id="grupo_register_nombre">
+                            <div class="input_name_group d-flex align-items-center form_grupo-input">
+                              <input type="text" class="form-control me-2 formulario_input" name="nombre" placeholder="Nombre" required value="{{nombre}}">
+                              <i class="register_validation_state fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="register_input_error">Obligatorio. Sin simbolos</p>
+                          </div>
+                           <!--grupo apellido-->
+                          <div class="form-group pb-1 my-2 d-flex flex-column align-items-start grupo-control " id="grupo_register_apellido">  
+                            <div class="input_apellido_group d-flex align-items-center form_grupo-input">
+                              <input type="text" class="form-control me-2 my-2 formulario_input" name="apellido" placeholder="Apellido" value="{{apellido}}">
+                              <i class="register_validation_state fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="register_input_error">Obligatorio. Sin simbolos</p>
+                          </div>  
+                          
+                        </div>
+                        <div class="col-6 d-flex">
+                          <div class="form-group my-2 ms-2 ">                   
+                              <div class="group">
+                                <img src="img/user.png" alt="" class="crop-image" id="crop-image3">
+                                <input class="d-none"type="file"  id="input-file3" accept=".png,.jpg,.jpeg" name="foto" >                              
+                                <label for="input-file3" class="label-file">imagen</label>
+                            </div>
+                          </div>                       
+                        </div>
+                      </div>
+
+                      <!--grupo email-->
+                          <div class="form-group pb-3 my-2 grupo-control" id="grupo_register_email">  
+                            <div class="input_email_group d-flex align-items-center form_grupo-input">
+                              <input type="email" class="form-control formulario_input" name="email" placeholder="Email" value="{{email}}" required>
+                              <i class="register_validation_state fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="register_input_error">El email es obligatorio</p>
+                          </div>  
+                      <!--grupo password-->
+                          <div class="form-group pb-2 grupo-control " id="grupo_register_password">  
+                            <div class="input_password_group d-flex align-items-center form_grupo-input">
+                              <input type="password" class="form-control formulario_input" name="password" placeholder="Password" value="{{password}}" id="password1"required>
+                              <i class="register_validation_state fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="register_input_error">La contraseña debe tener como mínimo 4 carácteres</p>
+                          </div>  
+                      <!--grupo confirm password-->
+                          <div class="form-group pb-2 grupo-control " id="grupo_register_confirm_password">  
+                            <div class="input_confirm_password_group d-flex align-items-center form_grupo-input">
+                              <input type="password" class="form-control formulario_input" name="confirm_password" placeholder="Confirm Password" value="{{confirm_password}}" id="password2"required>
+                              <i class="register_validation_state fa-solid fa-circle-xmark"></i>
+                            </div>
+                            <p class="register_input_error">Las contraseñas no coinciden</p>
+                          </div>  
+                        <!--grupo terminos y condiciones--->
+                        <div class="mb-3 form-group" id="grupo_register_terminos">
+                          <input type="checkbox" class="form-check-input" id="check_terminos">
+                          <label class="form-check-label" for="terminos">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal_terminos">
+                                   Aceptar términos y condiciones
+                            </a>
+                           </label>
+                        </div>
+                        <div class="register_mensaje" id="register_mensaje">
+                          <p><i class="fa-solid fa-triangle-exclamation"></i><b>Error</b> Completa correctamente el formulario y selecciona una imagen de perfil</p>
+                        </div>  
+                    <div class="text-center my-4">
+                      <button type="submit"class="btn btn-primary btn-block w-100 ">Registrar</button>
+                      <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+                    </div>
+                  </form>
+                  <a href="#" id="back_login" class="text-dark font-weight-bold text-decoration-none d-flex my-3"><span class="material-icons ">arrow_back</span><span class="mx-1">Iniciar sesión</span></a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+<!--Modl terminos y condiciones--->
+<!-- Modal -->
+<div class="modal fade" id="modal_terminos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" >TÉRMINOS DEL SERVICIO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     <h2> GENERALIDADES</h2>
+
+<p>
+DoAll gestiona este sitio web. En todo el sitio, los términos "nosotros", "nos" y "nuestro" se refieren en lo sucesivo a DoAll. DoAll ofrece esta página web, incluida toda la información, las herramientas y los servicios que se ponen en este sitio a disposición suya, el usuario, siempre y cuando acepte la totalidad de los términos, condiciones, políticas y avisos contemplados aquí.
+</p><br>
+<p>
+ Al visitar nuestro sitio y/o comprarnos algo, usted interactúa con nuestro "Servicio" y reconoce como vinculantes los siguientes términos y condiciones (denominados en lo sucesivo "Términos del servicio", "Términos"), incluidos aquellos términos y condiciones adicionales y las políticas que se mencionan aquí y/o disponibles por medio de hipervínculo. Estos Términos del servicio se aplican a todos los usuarios del sitio, incluyendo de manera enunciativa mas no limitativa los usuarios que son navegadores, proveedores, clientes, comerciantes y/o que aporten contenido.
+Lea estos Términos del servicio detenidamente antes de acceder o utilizar nuestra página web. Al acceder o utilizar cualquier parte del sitio, usted acepta estos Términos del servicio. Si no acepta la totalidad de los términos y condiciones de este acuerdo, no podrá acceder al sitio web ni utilizar ningún servicio. Si estos Términos del servicio se considerasen una oferta, la aceptación se limita expresamente a los presentes Términos del servicio. 
+</p> <br>
+<p>
+  Las nuevas funciones o herramientas que se agreguen a la tienda actual también estarán sujetas a los Términos del servicio. Puede revisar la versión más reciente de los Términos del servicio en cualquier momento en esta página. Nos reservamos el derecho de actualizar, cambiar o reemplazar cualquier parte de los presentes Términos del servicio mediante la publicación de actualizaciones o cambios en nuestra página web. Es su responsabilidad revisar esta página periódicamente para ver los cambios. Su uso de la página web o el acceso a ella de forma continuada después de la publicación de cualquier cambio constituye la aceptación de dichos cambios.
+Nuestra tienda está alojada en Shopify Inc. Nos proporcionan la plataforma de comercio electrónico en línea que nos permite venderle nuestros productos y servicios.
+
+</p><br>
+<h3>SECCIÓN 1: TÉRMINOS DE LA TIENDA ONLINE</h3>
+<p>
+  Al aceptar los presentes Términos del servicio, usted declara que tiene la mayoría de edad en su estado o provincia de residencia, o que es mayor de edad en su estado o provincia de residencia y que nos ha dado su consentimiento para permitir que cualquiera de las personas menores que dependen de usted utilice este sitio.
+
+</p>
+<p>
+  No puede utilizar nuestros productos para ningún fin ilegal o no autorizado ni puede, al hacer uso del Servicio, infringir las leyes de su jurisdicción (incluyendo de manera enunciativa más no limitativa, las leyes de derechos de autor).
+</p>
+<p>
+  No transmitirá ningún gusano o virus informáticos ni ningún código de naturaleza destructiva.
+</p>
+<p>
+  El incumplimiento o violación de cualquiera de los Términos dará como resultado la rescisión inmediata de sus Servicios.
+</p><br>
+<h2>
+SECCIÓN 2: CONDICIONES GENERALES
+
+</h2>
+<p>
+  Usted comprende que su contenido (sin incluir la información de la tarjeta de crédito) puede transferirse sin cifrar e implicar (a) transmisiones en varias redes; y (b) cambios para adaptarse a los requisitos técnicos de conexión de redes o dispositivos y cumplir con ellos. La información de la tarjeta de crédito siempre se cifra durante la transferencia a través de las redes.
+</p>
+<p>
+ Usted acepta no reproducir, duplicar, copiar, vender, revender ni aprovechar ninguna parte del Servicio, uso del Servicio o acceso al Servicio o cualquier contacto en el sitio web a través de la cual se presta el servicio, sin nuestro permiso expreso por escrito. 
+</p>
+<p>Los encabezados utilizados en este acuerdo se incluyen solo para facilitar la lectura y no limitarán ni afectarán los presentes Términos.</p><br>
+<h2>
+ SECCIÓN 3: EXACTITUD, TOTALIDAD Y CRONOLOGÍA DE LA INFORMACIÓN 
+</h2>
+<p>
+  No nos responsabilizamos si la información disponible en este sitio no es precisa, completa o actualizada. El material presentado en este sitio se proporciona solo para información general y no se debe confiar en él ni utilizarlo como la única base para tomar decisiones sin consultar fuentes de información principales, más precisas, más completas o más recientes. Al confiar en cualquier material de este sitio lo hace por su cuenta y riesgo.
+</p>
+<p>
+  Este sitio puede contener cierta información histórica. La información histórica, inevitablemente, no es actual y se proporciona únicamente como referencia. Nos reservamos el derecho de modificar el contenido de este sitio en cualquier momento, pero no tenemos la obligación de actualizar ninguna información en nuestro sitio. Usted acepta que es su responsabilidad controlar los cambios en nuestro sitio.
+</p><br>
+<h2>
+SECCIÓN 4: MODIFICACIONES AL SERVICIO Y PRECIOS
+</h2>
+
+  
+<p>
+
+ Los precios de nuestros productos están sujetos a cambios sin previo aviso.
+</p>
+
+<p>
+ Nos reservamos el derecho de modificar o discontinuar el Servicio (o cualquier parte o contenido del mismo) sin previo aviso en cualquier momento.
+</p>
+
+<p>
+ No seremos responsables ante usted ni ante ningún tercero por ninguna modificación, cambio de precio, suspensión o interrupción del Servicio .
+</p> 
+<h2><br>
+  SECCIÓN 5: PRODUCTOS O SERVICIOS (si corresponde)
+</h2>
+
+<p>
+iertos productos o servicios pueden estar disponibles exclusivamente online a través del sitio web. Estos productos o servicios pueden tener cantidades limitadas y están sujetos a devolución o cambio solo de acuerdo con nuestra Política de devolución.
+
+Hemos hecho todo lo viable para mostrar con la mayor precisión posible los colores y las imágenes de nuestros productos que aparecen en la tienda. No podemos garantizar que la visualización de cualquier color en el monitor de su computadora sea precisa.
+Nos reservamos el derecho, pero no estamos obligados, de limitar las ventas de nuestros productos o servicios a cualquier persona, región geográfica o jurisdicción. Podemos ejercer este derecho caso por caso. Nos reservamos el derecho de limitar las cantidades de cualquier producto o servicio que ofrecemos. Todas las descripciones de los productos o los precios de los productos están sujetos a cambios en cualquier momento y sin previo aviso, a nuestra entera discreción. Nos reservamos el derecho de discontinuar cualquier producto en cualquier momento. Cualquier oferta de cualquier producto o servicio que se realice en este sitio no tiene validez donde dicho producto o servicio esté prohibido.
+
+No garantizamos que la calidad de cualquier producto, servicio, información u otro material que usted haya comprado u obtenido cumplirá con sus expectativas, o que cualquier error en el Servicio se corregirá.
+
+</p> <br>
+<h2>
+SECCIÓN 6: EXACTITUD DE LA FACTURACIÓN Y DE LA INFORMACIÓN DE LA CUENTA
+</h2>
+<p>
+  Nos reservamos el derecho de rechazar cualquier pedido que realice en nuestra tienda. Podemos, a nuestro exclusivo criterio, limitar o cancelar las cantidades compradas por persona, por hogar o por pedido. Estas restricciones pueden incluir pedidos realizados con la misma cuenta de cliente, la misma tarjeta de crédito o pedidos que usen la misma dirección de facturación o de envío. En el caso de que realicemos un cambio o cancelemos un pedido, intentaremos notificarle vía correo electrónico o la dirección de facturación / número de teléfono proporcionados en el momento en que se realizó el pedido. Nos reservamos el derecho de limitar o prohibir los pedidos que, a nuestra entera discreción, parezcan haber sido realizados por comerciantes, revendedores o distribuidores.
+Usted acepta suministrar información completa y precisa de la compra y cuenta actual, para todas las compras realizadas en nuestra tienda. Usted acepta actualizar rápidamente su cuenta y demás informaciones, entre ellas, su dirección de correo electrónico, los números de tarjeta de crédito y las fechas de vencimiento, para que podamos completar sus transacciones y contactarlo según sea necesario.
+Para obtener más información, consulte nuestra Política de devoluciones.
+</p>
+<h2>SECCIÓN 7: HERRAMIENTAS OPCIONALES</h2><br>
+<p>
+Podemos proporcionarle acceso a herramientas de terceros que no supervisamos, ni tenemos ningún control sobre ellas, ni tampoco contribuimos.
+Usted reconoce y acepta que brindamos acceso a dichas herramientas "tal como se encuentran" y "según disponibilidad" sin garantías, representaciones ni condiciones de ningún tipo y sin ningún tipo de respaldo. No tendremos ninguna responsabilidad como consecuencia del uso que haga de herramientas opcionales de terceros o en relación a ellas.
+Cualquier uso que haga de las herramientas opcionales ofrecidas a través del sitio es por su cuenta y riesgo, y debe asegurarse de estar familiarizado con los términos según los cuales los proveedores externos relevantes suministran dichas herramientas y aprobarlos.
+También podemos, en el futuro, ofrecer nuevos servicios o funciones a través del sitio web (incluido el lanzamiento de nuevas herramientas y recursos). Estas nuevas funciones o servicios también estarán sujetos a los presentes Términos de servicio.
+</p>
+<p>
+  
+</p>
+
+
+
+      </div>
+      <div class="modal-footer">
+       
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin modal terminos y coindiciones--->
+
+ <!-- Modal para cortar imagen ---modal de registro de perfil-->
+
+    <div class="modal_mio" id="modal3">
+        <div class="modal-content_mio" id="modal-content3">
+            <div class="modal-header_mio">
+                <p>Recorta tu foto</p>
+            </div>
+            <div class="modal-body_mio">
+                <div class="content-imagen-cropper">
+                    <img src="" alt="" class="img-cropper" id="img-cropper3">
+                </div>
+                <div class="content-imagen-sample">
+                    <div src="" alt="" class="img-sample" id="img-croppered3"></div>
+                </div>
+            </div>
+            <div class="modal-footer_mio">
+                <button class="btn primary" id="cut3">Recortar</button>
+                <button class="btn secundary" id="close3">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+           
+      <script>
+       let logi= document.getElementById('loguearse')
+       let regi= document.getElementById('formRegister')
+       
+          document.getElementById('register').addEventListener('click',()=>{
+            document.getElementById('formRegister').classList.remove('d-none')
+            document.getElementById('loguearse').classList.add('d-none')
+          })
+          document.getElementById('back_login').addEventListener('click',()=>{
+
+            document.getElementById('formRegister').classList.add('d-none')
+            document.getElementById('loguearse').classList.remove('d-none')
+               
+          })
+
+
+//validar fromulario registro
+const expresiones = {
+	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	password: /^.{4,12}$/, // 4 a 12 digitos.
+	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+};
+const campos = {
+	nombre: false,
+	apellido: false,
+  email: false,
+	password: false,
+}
+
+
+
+const formRegister=document.getElementById('formRegister')
+const inputsRegister=document.querySelectorAll('#formRegister input[type="text"], #formRegister input[type="password"], #formRegister input[type="email"]')
+console.log('inputsRegister=>', inputsRegister)
+const validarFormulario=(e)=>{
+  switch (e.target.name) {
+		case "nombre":
+			validarCampo(expresiones.nombre, e.target, 'nombre');
+		break;
+		case "apellido":
+			validarCampo(expresiones.nombre, e.target, 'apellido');
+		break;
+		case "password":
+			validarCampo(expresiones.password, e.target, 'password');
+			validarPassword2();
+		break;
+		case "confirm_password":
+			validarPassword2();
+		break;
+		case "email":
+			validarCampo(expresiones.email, e.target, 'email');
+		break;
+		
+	}
+};
+
+const cleanInput=(valor)=>{
+  const expresiones=["<script>", "[", "]" , 
+    "parseInt", "document.write", "isNaN", "unescape", "escape",
+    "parseFloat", "parseInt", "eval", "isNaN", "onload", "alert", "script",
+    "<",  ">", "onload", "=", "(", ")", '"' ,"'" ,"/"]
+  let salida=true;
+    expresiones.forEach(el=>{
+      if(valor.includes(el)){
+        salida=false;
+        console.log('término o palabra prohibida')
+      }
+    });
+  return salida  
+};
+
+const validarCampo = (expresion, input, campo) => {
+	if(expresion.test(input.value) && cleanInput(input.value)){
+		document.getElementById(`grupo_register_${campo}`).classList.remove('grupo-control-incorrecto');
+		document.getElementById(`grupo_register_${campo}`).classList.add('grupo-control-correcto');
+		document.querySelector(`#grupo_register_${campo} i`).classList.add('fa-circle-check');
+		document.querySelector(`#grupo_register_${campo} i`).classList.remove('fa-circle-xmark');
+		document.querySelector(`#grupo_register_${campo} .register_input_error`).classList.remove('register_input_error-activo');
+		campos[campo] = true;
+	} else {
+		document.getElementById(`grupo_register_${campo}`).classList.add('grupo-control-incorrecto');
+		document.getElementById(`grupo_register_${campo}`).classList.remove('grupo-control-correcto');
+		document.querySelector(`#grupo_register_${campo} i`).classList.add('fa-circle-xmark');
+		document.querySelector(`#grupo_register_${campo} i`).classList.remove('fa-circle-check');
+		document.querySelector(`#grupo_register_${campo} .register_input_error`).classList.add('register_input_error-activo');
+		campos[campo] = false;
+	}
+}
+
+const validarPassword2 = () => {
+	const inputPassword1 = document.getElementById('password1');
+	const inputPassword2 = document.getElementById('password2');
+
+	if(inputPassword1.value !== inputPassword2.value){
+		document.getElementById(`grupo_register_confirm_password`).classList.add('grupo-control-incorrecto');
+		document.getElementById(`grupo_register_confirm_password`).classList.remove('grupo-control-correcto');
+		document.querySelector(`#grupo_register_confirm_password i`).classList.add('fa-circle-xmark');
+		document.querySelector(`#grupo_register_confirm_password i`).classList.remove('fa-circle-check');
+		document.querySelector(`#grupo_register_confirm_password .register_input_error`).classList.add('register_input_error-activo');
+		campos['password'] = false;
+	} else {
+		document.getElementById(`grupo_register_confirm_password`).classList.remove('grupo-control-incorrecto');
+		document.getElementById(`grupo_register_confirm_password`).classList.add('grupo-control-correcto');
+		document.querySelector(`#grupo_register_confirm_password i`).classList.remove('fa-circle-xmark');
+		document.querySelector(`#grupo_register_confirm_password i`).classList.add('fa-circle-check');
+		document.querySelector(`#grupo_register_confirm_password .register_input_error`).classList.remove('register_input_error-activo');
+		campos['password'] = true;
+	}
+}
+
+
+inputsRegister.forEach(input=>{
+  input.addEventListener('keyup',validarFormulario)
+  input.addEventListener('blur',validarFormulario)
+})
+      
+formRegister.addEventListener('submit',(e)=>{
+  let fotoinput=document.getElementById('input-file3')
+  e.preventDefault()
+console.log('evento con input-file3', e.target)
+  console.log('campos antes de comprobar', campos)
+  const terminos = document.getElementById('check_terminos');
+	if( campos.nombre && campos.apellido && campos.email && campos.password && terminos.checked && fotoinput.value){
+		console.log('campos', campos)
+		console.log('foto', fotoinput.value, !!fotoinput.value)
+    {{!-- formRegister.reset(); --}}
+
+		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+		setTimeout(() => {
+			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+		}, 5000);
+
+		document.querySelectorAll('.grupo-control-correcto').forEach((icono) => {
+			icono.classList.remove('grupo-control-correcto');
+		});
+	}else{
+		document.getElementById('register_mensaje').classList.add('register_mensaje-activo');
+	}
+
+})
+
+let estados={
+  email: true,
+  password: true
+}
+
+let inputLogin=document.querySelectorAll('#form_login input')
+
+inputLogin.forEach(inp=>{
+  inp.addEventListener('change',(e)=>{
+  let valor=e.target.value
+  let estado=cleanInput(valor)
+  if(e.target.name=='email'){
+    estados.email=estado
+  }
+  if(e.target.name=='password'){
+    estados.password=estado
+  }
+ 
+
+})
+})
+
+let formLogin=document.getElementById('form_login')
+formLogin.addEventListener('submit', (e)=>{
+  e.preventDefault();  
+  if( estados.email && estados.password){
+    formLogin.submit()
+   }else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...pillín',
+      text: 'Revisa que hayas ingresado correctamente tus credenciales!',
+    })
+   }
+});
+
+
+
+      </script>
+      <script>
+        //Para modal y src del modal de registro de usuarios
+document.getElementById('input-file3').addEventListener('change', (e) => {
+    let image = document.getElementById('img-cropper3')
+    let input = document.getElementById('input-file3')
+    let archivos = input.files
+   
+    let extensiones = input.value.substring(input.value.lastIndexOf('.'), input.value.lenght)
+    
+    if(!archivos || !archivos.length){        
+        image.src = "";
+        input.value = "";
+        
+    } else if(input.getAttribute('accept').split(',').indexOf(extensiones) < 0){
+         alert('Debes seleccionar una imagen')
+         input.value = "";
+
+    } else {
+        let imagenUrl = URL.createObjectURL(archivos[0])
+        image.src = imagenUrl
+
+        cropper = new Cropper(image, {
+            aspectRatio: 1, // es la proporción en la que queremos que recorte en este caso 1:1
+            preview: '.img-sample', // contenedor donde se va a ir viendo en tiempo real la imagen cortada
+            zoomable: false, //Para que no haga zoom 
+            viewMode: 1, //Para que no estire la imagen al contenedor
+            responsive: false, //Para que no reacomode con zoom la imagen al contenedor
+            dragMode: 'none', //Para que al arrastrar no haga nada
+            ready(){ // metodo cuando cropper ya este activo, le ponemos el alto y el ancho del contenedor de cropper al 100%
+                document.querySelector('.cropper-container').style.width = '100%'
+                document.querySelector('.cropper-container').style.height = '100%'
+            }
+        });
+       document.getElementById('modal3').classList.add('active')
+        document.getElementById('modal-content3').classList.add('active')
+
+        document.getElementById('modal3').classList.remove('remove')
+        document.getElementById('modal-content3').classList.remove('remove')
+    }  
+});
+
+document.getElementById('close3').addEventListener('click', () => {
+    let image = document.getElementById('img-cropper3')
+    let input = document.getElementById('input-file3')
+    image.src = "";
+    input.value = "";
+    cropper.destroy()
+    document.getElementById('modal3').classList.add('remove')
+    document.getElementById('modal-content3').classList.add('remove')
+    document.getElementById('modal3').classList.remove('active')
+    document.getElementById('modal-content3').classList.remove('active')
+})
+
+document.getElementById('cut3').addEventListener('click', () => {
+    let crop_image = document.getElementById('crop-image3')
+    let canva = cropper.getCroppedCanvas()
+    // let image = document.getElementById('img-cropper3')
+    // let input = document.getElementById('input-file3')
+
+    canva.toBlob(function(blob){
+        let url_cut = URL.createObjectURL(blob)
+        crop_image.src = url_cut;
+
+        let frag= new File([blob], 'image.png', { type: blob.type})
+       let container = new DataTransfer();
+       container.items.add(frag);
+       input.files = container.files; 
+    })
+ 
+    // input.value = "";
+    cropper.destroy()
+
+    document.getElementById('modal3').classList.add('remove')
+    document.getElementById('modal-content3').classList.add('remove')
+    document.getElementById('modal3').classList.remove('active')
+    document.getElementById('modal-content3').classList.remove('active')
+
+    cropper=null;
+})
+      </script>

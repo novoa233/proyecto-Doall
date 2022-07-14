@@ -1,0 +1,244 @@
+
+	{{>sidebar}}
+	<section id="content">
+		{{>navbar}}
+		<main>
+
+			{{>box-info}}
+			<div class="table-data">
+				<div class="order pt-0">
+					<div class="head my-0">
+						<span class="fs-4" id="title_project">Proyectos</span>
+						<span class="fs-4 d-none" id="symbo">></span>
+						<span class="fs-4 d-none" id="name_project"></span>
+						<span class="d-none"id="id_project"></span>
+						<button class=" btn btn-light px-2 ms-auto" id="btn-newProject">
+							<span class="material-symbols-outlined">add</span>
+						</button>
+					</div>
+					
+                    {{>projects}}
+				</div>
+
+			</div>
+		</main>
+		<!-- MAIN -->
+		<script>
+
+//para crear un proyecto nuevo
+document.getElementById('btn-newProject').addEventListener('click', async()=>{
+	const tpl=`  <div class="container my-4">
+             <div class="row">
+
+            <!-- nombre -->
+            <div class="input-group mb-3 w-50 col-12 col-md-4">
+                <span class="input-group-text bg-info text-white" id="inputGroup-sizing-default">Nombre</span>
+                <input type="text" class="form-control " placeholder="Nombre del proyecto" aria-describedby="inputGroup-sizing-default" id="name">
+              </div>
+              <!-- prioridad -->
+              <div class="input-group mb-3 w-25 col-12 col-md-4">
+                <label class="input-group-text bg-info text-white" for="input_prioridad">Prioridad</label>
+                <select class="form-select" id="input_prioridad">
+                  <option selected>Alta</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Media">Media</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+              <div class="input-group mb-3 w-25 col-12 col-md-4">
+                <span class="input-group-text bg-info text-white" id="inputGroup-sizing-default">fecha</span>
+                <input type="date" value="${moment().format('YYYY-MM-DD')}" class="form-control "aria-describedby="inputGroup-sizing-default" id="fecha_i" >
+              </div>
+        </div>
+          <!-- descripcion -->
+        <div class="input-group">
+            <span class="input-group-text bg-info text-white">Descripción</span>
+            <textarea class="form-control " placeholder="Descripcion del proyecto" id="description"></textarea>
+        </div>
+
+    </div>`
+	const { value: formValues } = await Swal.fire({
+		title: 'Crear nuevo proyecto',
+		html: tpl,
+		width: '60%',
+		focusConfirm: false,
+		preConfirm: () => {		
+			return 'Creado !'
+		}
+	})
+	if (formValues) {	
+		let payload={
+		nombre: document.getElementById('name').value.trim(),
+		descripcion: document.getElementById('description').value.trim(),
+		prioridad: document.getElementById('input_prioridad').value.trim(),
+		fecha_inicio: document.getElementById('fecha_i').value,
+		estado: "Pendiente"
+		}		
+		const save_post=await fetch('/projects',{
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(payload)
+		});
+		const result=await save_post
+		const data=await result.json()
+		console.log(data) 	
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Su proyecto ha sido creado',
+			showConfirmButton: false,
+			timer: 1500
+			})
+		setTimeout(()=>{
+			window.location.href='/projects'
+		},1550)
+
+	}else {
+			Swal.fire({
+				title:'Cancelado !',
+				icon: 'error'
+				})
+		};				
+});
+
+let title_project=document.getElementById('title_project')
+
+//para el panel de navegacion entre proyectos
+title_project.addEventListener('click',()=>{
+	let table_projects=document.getElementById('table_projects')
+    let symbo= document.getElementById('symbo')
+    let name_project=document.getElementById('name_project')
+
+    name_project.innerHTML='';
+    symbo.classList.add('d-none');
+    name_project.classList.add('d-none')
+	table_projects.classList.remove('d-none');
+	kanban_app.classList.add('d-none')
+});
+
+//Para editar un proyecto
+const edit_project=async(id_project, nombre, fecha, descripcion, prioridad)=>{
+	const tpl=`  <div class="container my-4">
+             <div class="row">
+
+            <!-- nombre -->
+            <div class="input-group mb-3 w-50 col-12 col-md-4">
+                <span class="input-group-text bg-info text-white" id="inputGroup-sizing-default">Nombre</span>
+                <input type="text" class="form-control " placeholder="Nombre del proyecto" aria-describedby="inputGroup-sizing-default" id="name" value='${nombre}'>
+              </div>
+              <!-- prioridad -->
+              <div class="input-group mb-3 w-25 col-12 col-md-4">
+                <label class="input-group-text bg-info text-white" for="input_prioridad">Prioridad</label>
+                <select class="form-select" id="input_prioridad">
+                  <option selected>${prioridad}</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Media">Media</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+              <div class="input-group mb-3 w-25 col-12 col-md-4">
+                <span class="input-group-text bg-info text-white" id="inputGroup-sizing-default">fecha</span>
+                <input type="date" value="${fecha}" class="form-control "aria-describedby="inputGroup-sizing-default" id="fecha_i" >
+              </div>
+        </div>
+          <!-- descripcion -->
+        <div class="input-group">
+            <span class="input-group-text bg-info text-white">Descripción</span>
+            <textarea class="form-control " placeholder="Descripcion del proyecto" id="description_ed" >${descripcion}</textarea>
+        </div>
+
+    </div>`
+
+
+		const { value: formValues } = await Swal.fire({
+		title: 'Editar proyecto',
+		html: tpl,
+		width: '60%',
+		focusConfirm: false,
+		preConfirm: () => {		
+			return 'Editado !'
+		}
+	})
+
+	if (formValues) {
+		
+		let payload={
+		nombre: document.getElementById('name').value,
+		descripcion: document.getElementById('description_ed').value,
+		prioridad: document.getElementById('input_prioridad').value,
+		fecha_inicio: document.getElementById('fecha_i').value,
+		}
+		
+		const save_post=await fetch(`/projects/${id_project}`,{
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(payload)
+		});
+		const result=await save_post
+		const data=await result.json()
+		console.log(data) 	
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Su proyecto ha sido editao con éxito',
+			showConfirmButton: false,
+			timer: 1500
+			})
+		setTimeout(()=>{
+			window.location.href='/projects'
+		},1550)
+
+	}else {
+			Swal.fire({
+				title:'Cancelado !',
+				icon: 'error'
+				})
+		};
+}
+
+//Para eliminar un proyecto
+const delete_project=async(id)=>{
+		let nom_proj=document.getElementById(`nombre_${id}`).innerHTML.trim()
+
+	Swal.fire({
+  title: 'Esta seguro de eliminar este proyecto?',
+  text: "Esto también eliminará todas las listas de tareas y no podrá revertirse",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminalo !'
+}).then(async(result) => {
+	if (result.isConfirmed) {
+		const save_post=await fetch(`/projects/${id}`,{
+				method: 'DELETE',
+				headers: {
+					"Content-Type": "application/json"
+				}			
+			});
+		const result=await save_post
+		console.log('confirmada la eliminacion')
+		Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Su proyecto y listas de tareas asociadas han sido eliminadas con éxito',
+				showConfirmButton: false,
+				timer: 1500
+		});
+		localStorage.removeItem(`${nom_proj}_listas`)
+		setTimeout(()=>{
+			window.location.href='/projects'
+		},1550)
+	}else{
+		console.log('cancelada la aliminacion')
+  	}
+})
+
+};
+
+
+</script>
